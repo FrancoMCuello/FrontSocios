@@ -1,7 +1,7 @@
 import "./App.css";
-import NewRegister from "./components/NewRegister";
 import Home from "./components/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import NewRegister from "./components/NewRegister";
 
 /* const apiURL = "https://localhost:3000"; */
 

@@ -3,20 +3,15 @@ import Nav from "./Nav";
 
 function Home() {
   const [registros, setRegistros] = useState([]);
-  /*   const [vehiculos, setVehiculos] = useState([]);
-  const [usuarios, setUsuarios] = useState([]); */
+
   const apiURL = "http://localhost:3000";
 
   useEffect(() => {
     Promise.all([
       fetch(`${apiURL}/registros`).then((response) => response.json()),
-      /*  fetch(`${apiURL}/vehiculos`).then((response) => response.json()),
-      fetch(`${apiURL}/user`).then((response) => response.json()), */
     ])
       .then(([registrosData]) => {
         setRegistros(registrosData);
-        /*       setVehiculos(vehiculosData);
-        setUsuarios(usuariosData); */
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
