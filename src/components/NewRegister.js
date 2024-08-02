@@ -20,7 +20,7 @@ function NewRegister() {
   });
 
   const [registro, setRegistro] = useState({
-    fecha_ingreso: "",
+    fecha_ingreso: new Date(),
     estado_pago: "0",
     tipo_pago: "0",
     estado_lavado: "0",
@@ -44,6 +44,11 @@ function NewRegister() {
       registro,
     };
 
+    setRegistro((prevRegistro) => ({
+      ...prevRegistro,
+      fecha_ingreso: new Date(),
+    }));
+
     try {
       const response = await axios.post(`${apiURL}/registros`, datos);
       console.log("Registro con exito: ", response.data);
@@ -59,105 +64,76 @@ function NewRegister() {
 
   return (
     <>
-      <h1>New Register Funciona</h1>
-      <form onSubmit={handleSubmit}>
-        <h2>Crear Registro</h2>
+      <div className="nuevoRegistro">
+        <h1>New Register Funciona</h1>
+        <form onSubmit={handleSubmit}>
+          <h2>Crear Registro</h2>
 
-        <h3>Usuario</h3>
-        <input
-          type="text"
-          name="nombre"
-          placeholder="Nombre"
-          value={user.nombre}
-          onChange={(e) => handleChange(e, setUser)}
-          required
-        />
-        <input
-          type="text"
-          name="apellido"
-          placeholder="Apellido"
-          value={user.apellido}
-          onChange={(e) => handleChange(e, setUser)}
-          required
-        />
-        <input
-          type="text"
-          name="contacto"
-          placeholder="Contacto"
-          value={user.contacto}
-          onChange={(e) => handleChange(e, setUser)}
-          required
-        />
+          <h3>Usuario</h3>
+          <input
+            type="text"
+            name="nombre"
+            placeholder="Nombre"
+            value={user.nombre}
+            onChange={(e) => handleChange(e, setUser)}
+            required
+          />
+          <input
+            type="text"
+            name="apellido"
+            placeholder="Apellido"
+            value={user.apellido}
+            onChange={(e) => handleChange(e, setUser)}
+            required
+          />
+          <input
+            type="text"
+            name="contacto"
+            placeholder="Contacto"
+            value={user.contacto}
+            onChange={(e) => handleChange(e, setUser)}
+            required
+          />
 
-        <h3>Vehículo</h3>
-        <input
-          type="text"
-          name="patente"
-          placeholder="Patente"
-          value={vehiculo.patente}
-          onChange={(e) => handleChange(e, setVehiculo)}
-          required
-        />
-        <input
-          type="text"
-          name="marca"
-          placeholder="Marca"
-          value={vehiculo.marca}
-          onChange={(e) => handleChange(e, setVehiculo)}
-          required
-        />
-        <input
-          type="text"
-          name="modelo"
-          placeholder="Modelo"
-          value={vehiculo.modelo}
-          onChange={(e) => handleChange(e, setVehiculo)}
-          required
-        />
+          <h3>Vehículo</h3>
+          <input
+            type="text"
+            name="patente"
+            placeholder="Patente"
+            value={vehiculo.patente}
+            onChange={(e) => handleChange(e, setVehiculo)}
+            required
+          />
+          <input
+            type="text"
+            name="marca"
+            placeholder="Marca"
+            value={vehiculo.marca}
+            onChange={(e) => handleChange(e, setVehiculo)}
+            required
+          />
+          <input
+            type="text"
+            name="modelo"
+            placeholder="Modelo"
+            value={vehiculo.modelo}
+            onChange={(e) => handleChange(e, setVehiculo)}
+            required
+          />
 
-        <h3>Registro</h3>
-        <input
-          type="datetime-local"
-          name="fecha_ingreso"
-          value={registro.fecha_ingreso}
-          onChange={(e) => handleChange(e, setRegistro)}
-          required
-        />
-        <input
-          type="number"
-          name="estado_pago"
-          placeholder="Estado de Pago"
-          value={registro.estado_pago}
-          onChange={(e) => handleChange(e, setRegistro)}
-          required
-        />
-        <input
-          type="number"
-          name="tipo_pago"
-          placeholder="Tipo de Pago"
-          value={registro.tipo_pago}
-          onChange={(e) => handleChange(e, setRegistro)}
-          required
-        />
-        <input
-          type="number"
-          name="estado_lavado"
-          placeholder="Estado de Lavado"
-          value={registro.estado_lavado}
-          onChange={(e) => handleChange(e, setRegistro)}
-          required
-        />
-        <input
-          type="number"
-          name="estado_vehiculo"
-          placeholder="Estado del Vehículo"
-          value={registro.estado_vehiculo}
-          onChange={(e) => handleChange(e, setRegistro)}
-          required
-        />
+          <h3>Registro</h3>
+          <input
+            type="text"
+            name="fecha_ingreso"
+            placeholder={new Date()}
+            value={registro.fecha_ingreso.toLocaleString()}
+            required
+            readOnly
+          />
 
-        <button type="submit">Crear Registro</button>
-      </form>
+          <button type="submit">Crear Registro</button>
+        </form>
+      </div>
     </>
   );
 }

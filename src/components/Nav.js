@@ -18,7 +18,7 @@ function Nav() {
         <span>Responsive</span>
       </h1>
       <div className={`links ${clicked ? "active" : ""}`}>
-        <a href="/newRegister">Nuevo Registro</a>
+        <a href="/register">Nuevo Registro</a>
         <a href="/">Ver Vehicuos</a>
         <a href="/">Ver Usuarios</a>
         <a href="/">Dashboard</a>
