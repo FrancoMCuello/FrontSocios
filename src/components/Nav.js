@@ -19,8 +19,8 @@ function Nav() {
       </h1>
       <div className={`links ${clicked ? "active" : ""}`}>
         <a href="/register">Nuevo Registro</a>
-        <a href="/">Ver Vehicuos</a>
-        <a href="/">Ver Usuarios</a>
+        <a href="/viewVehiculo">Ver Vehicuos</a>
+        <a href="/viewUser">Ver Usuarios</a>
         <a href="/">Dashboard</a>
         <a href="/">Cerra Sesion</a>
       </div>
