@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 function ViewUser() {
   const [users, setUsers] = useState([]);
@@ -11,6 +12,25 @@ function ViewUser() {
 
   const navigateHome = () => {
     navigate("/");
+  };
+
+  const modificarU = (user) => {
+    navigate("/changeUser", { state: { user } });
+  };
+
+  const deleteU = async (user) => {
+    try {
+      const response = await axios.delete(`${apiURL}/user/${user.id}`);
+      console.log("Usuario eliminado con exito: ", response.data);
+      alert("Se elimino usuario con exito");
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    } catch (error) {
+      console.log("Error: ", error);
+      alert("Error al eliminar el usuario.");
+    }
   };
 
   useEffect(() => {
@@ -44,6 +64,12 @@ function ViewUser() {
                 <StyledTd>{user.nombre}</StyledTd>
                 <StyledTd>{user.apellido}</StyledTd>
                 <StyledTd>{user.contacto}</StyledTd>
+                <td>
+                  <button onClick={() => modificarU(user)}>Modificar</button>
+                </td>
+                <td>
+                  <button onClick={() => deleteU(user)}>Eliminar</button>
+                </td>
               </tr>
             ))}
           </tbody>

@@ -2,12 +2,28 @@ import { useEffect, useState } from "react";
 import Nav from "./Nav";
 import { FaCircle } from "react-icons/fa";
 import styled from "styled-components";
+import axios from "axios";
 
 function Home() {
   // Logica
   const [registros, setRegistros] = useState([]);
 
   const apiURL = "http://localhost:3000";
+
+  const deleteR = async (registro) => {
+    try {
+      const response = await axios.delete(`${apiURL}/registros/${registro.id}`);
+      console.log("Registro eliminado con exito: ", response.data);
+      alert("Se elimino registro con exito");
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    } catch (error) {
+      console.log("Error: ", error);
+      alert("Error al eliminar el registro.");
+    }
+  };
 
   useEffect(() => {
     Promise.all([
@@ -69,6 +85,9 @@ function Home() {
                 <StyledTd>{registro.vehiculo?.patente}</StyledTd>
                 <StyledTd>{registro.vehiculo?.user?.nombre}</StyledTd>
                 <StyledTd>{registro.vehiculo?.user?.apellido}</StyledTd>
+                <td>
+                  <button onClick={() => deleteR(registro)}>Eliminar</button>
+                </td>
               </tr>
             ))}
           </tbody>

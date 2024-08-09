@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 function ViewVehiculo() {
   const [vehiculos, setVehiculos] = useState([]);
@@ -11,6 +12,25 @@ function ViewVehiculo() {
 
   const navigateHome = () => {
     navigate("/");
+  };
+
+  const modificarV = (vehiculo) => {
+    navigate("/changeVehiculo", { state: { vehiculo } });
+  };
+
+  const deleteV = async (vehiculo) => {
+    try {
+      const response = await axios.delete(`${apiURL}/vehiculos/${vehiculo.id}`);
+      console.log("Vehiculo eliminado con exito: ", response.data);
+      alert("Se elimino vehiculo con exito");
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    } catch (error) {
+      console.log("Error: ", error);
+      alert("Error al eliminar el vehículo.");
+    }
   };
 
   useEffect(() => {
@@ -52,6 +72,14 @@ function ViewVehiculo() {
                 <StyledTd>{vehiculo.user?.nombre}</StyledTd>
                 <StyledTd>{vehiculo.user?.apellido}</StyledTd>
                 <StyledTd>{vehiculo.user?.contacto}</StyledTd>
+                <td>
+                  <button onClick={() => modificarV(vehiculo)}>
+                    Modificar
+                  </button>
+                </td>
+                <td>
+                  <button onClick={() => deleteV(vehiculo)}>Eliminar</button>
+                </td>
               </tr>
             ))}
           </tbody>
